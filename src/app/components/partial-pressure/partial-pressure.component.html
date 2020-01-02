@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Depth</th>
+    <th *ngFor="let fo2 of range(21,36)">
+      {{fo2}}%
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  </tr>
+  <tr *ngFor="let m of depths">
+    <td>{{m}}m</td>
+    <td *ngFor="let fo2 of range(21,36)" [class.bg-success]="fo2 === 21 || fo2 === 32 || fo2 === 36"
+        [class.bg-danger]="ppo2(m, fo2) >= 1.6" [class.bg-warning]="ppo2(m, fo2) >= 1.4"
+        [class.text-secondary]="ppo2(m, fo2) < 1.4">{{ppo2(m, fo2)}}</td>
+  </tr>
+  </tbody>
+</table>
