@@ -1,0 +1,21 @@
+<ngb-alert [dismissible]="false">
+  <h5><b>Maximum Operating Depth</b>: MOD = [10 × ( ppO2 / FO2 ) ] - 10</h5>
+</ngb-alert>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>PPO2</th>
+    <th *ngFor="let fo2 of ean">
+      {{fo2}}%
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let po2 of ppo2">
+    <th>{{po2}}</th>
+    <td *ngFor="let fo2 of ean" class="small"
+        [class.bg-success]="fo2 === 21 || fo2 === 32 || fo2 === 36"
+    >{{mod(po2, fo2) | meter}}</td>
+  </tr>
+  </tbody>
+</table>

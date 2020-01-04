@@ -1,0 +1,21 @@
+<ngb-alert [dismissible]="false">
+  <h5><b>Equivalent Air Depth</b>: EAD = [( 1 - FO2) * (D + 10) / 0.79] - 10</h5>
+</ngb-alert>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Depth</th>
+    <th *ngFor="let fo2 of ean">
+      {{fo2}}%
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let m of depths">
+    <th>{{m}}</th>
+    <td *ngFor="let fo2 of ean" class="small"
+        [class.bg-success]="fo2 === 21 || fo2 === 32 || fo2 === 36"
+    >{{ead(fo2, m) | meter}}</td>
+  </tr>
+  </tbody>
+</table>

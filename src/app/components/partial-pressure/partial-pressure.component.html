@@ -1,20 +1,49 @@
+<ngb-alert [dismissible]="false">
+  <h5><b>Sauerstoffpartialdruck (ppO2)</b>: ppO2= [(Tiefe / 10 m) +1] x FO2</h5>
+</ngb-alert>
 <table class="table table-striped">
   <thead>
   <tr>
     <th>Depth</th>
-    <th *ngFor="let fo2 of range(21,36)">
+    <th *ngFor="let fo2 of ean">
       {{fo2}}%
     </th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-  </tr>
   <tr *ngFor="let m of depths">
-    <td>{{m}}m</td>
-    <td *ngFor="let fo2 of range(21,36)" [class.bg-success]="fo2 === 21 || fo2 === 32 || fo2 === 36"
-        [class.bg-danger]="ppo2(m, fo2) >= 1.6" [class.bg-warning]="ppo2(m, fo2) >= 1.4"
-        [class.text-secondary]="ppo2(m, fo2) < 1.4">{{ppo2(m, fo2)}}</td>
+    <th>{{m | meter}}</th>
+    <td *ngFor="let fo2 of ean"
+        [class.text-secondary]="ppo2(m, fo2) < PPO2_WARN"
+        [class.bg-success]="fo2 === 21 || fo2 === 32 || fo2 === 36"
+        [class.bg-warning]="ppo2(m, fo2) >= PPO2_WARN"
+        [class.bg-danger]="ppo2(m, fo2) >= PPO2_MAX"
+    >{{ppo2(m, fo2)}}</td>
   </tr>
   </tbody>
 </table>
+
+<h3>Abkürzungen</h3>
+<dl>
+  <dt>FO2</dt>
+  <dd>Sauerstoffanteil des Atemgases</dd>
+  <dt>MOD</dt>
+  <dd><b>M</b>aximum <b>O</b>perating <b>D</b>epth</dd>
+  <dt>EAD</dt>
+  <dd><b>E</b>quivalent <b>A</b>ir <b>D</b>epth</dd>
+  <dt>Lorrain-Smith Effekt</dt>
+  <dd>Die pulmonale Sauerstoffvergiftung — auch Lorrain Smith-Effekt — entsteht, wenn Gasmischungen mit einem Sauerstoffpartialdruck von 0,5 bar oder höher geatmet werden. Die Zeitspanne, der sich Menschen solchen Gasen aussetzen müssen, bevor Symptome einer pulmonalen Sauerstoffvergiftung auftreten, liegt jedoch weit über der Dauer der meisten Sporttauchgänge. Somit stellt sie kein wirkliches Risiko für Sporttaucher dar.</dd>
+  <dt>Paul-Bert Effekt</dt>
+  <dd>Die Sauerstoffvergiftung des Zentralen Nervensystems (ZNS) — oder Paul Bert-Effekt — gibt hier schon mehr Anlass zur Besorgnis, denn die Symptome können sich, sobald sie einmal eingetreten sind, rasch zu Krämpfen entwickeln.</dd>
+</dl>
+
+<h3>Symptome einer ZNS Sauerstoffvergiftung</h3>
+<ul>
+  <li>Krämpfe</li>
+  <li>Visuelle Störungen, jede Beeinträchtigung des Sehvermögens und die Einengung des Gesichtsfeldes („Tunnelblick”).</li>
+  <li>Ohren - Ohrensausen, alle Veränderungen der normalen Gehörfunktion, besonders ein Klingeln.</li>
+  <li>Übelkeit, kann periodisch auftreten und in der Intensität variieren.</li>
+  <li>Muskelspasmen jeglicher Art, besonders in der Gesichtsmuskulatur.</li>
+  <li>Gereiztkeit, uncharakteristische Persönlichkeitsveränderungen, Angst- und Verwirrungszustände (auch als Anzeichen).</li>
+  <li>Benommenheit - Schwindel (Vertigo) oder Orientierungsstörungen.</li>
+</ul>
